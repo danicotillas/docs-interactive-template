@@ -2,8 +2,7 @@ import mainHTML from './text/main.html!text';
 import { PimpedYouTubePlayer } from './lib/youtube';
 import share from './lib/share';
 import sheetToDomInnerHtml from './lib/sheettodom';
-import emailsignupURL from './lib/emailsignupURL';
-import { setAttributes, setData, setStyles } from './lib/dom';
+import { setStyles } from './lib/dom';
 import { isMobile } from './lib/detect';
 import sheetNameFromShortId from './lib/sheetnamefromshortid';
 import reqwest from 'reqwest';
@@ -32,9 +31,8 @@ export function init(el, context, config) {
             hiddenDesc.classList.toggle('expanded');
         };
 
-        const emailIframe = builder.querySelector('.js-email-sub__iframe');
-
         builder.querySelector('.docs__poster--loader').addEventListener('click', function() {
+            const player = new PimpedYouTubePlayer(youTubeId, builder, '100%', '100%', config);
             player.play();
         });
 
@@ -48,15 +46,17 @@ export function init(el, context, config) {
         const snapLinks = ['One', 'Two', 'Three', 'Four'];
         snapLinks.forEach((snapLink) => {
             const jsonURL = resp.sheets[sheetName][0]['jsonSnap' + snapLink];
-            reqwest({
-                'url': jsonURL,
-                'type': 'json',
-                'crossOrigin': true,
-                'success': snapJSON => {
-                    const el = builder.querySelector('section#more-documentaries .nextSnap' + snapLink);
-                    el.innerHTML = snapJSON.html;
-                }
-            });
+            if(jsonURL) {
+                reqwest({
+                    'url': jsonURL,
+                    'type': 'json',
+                    'crossOrigin': true,
+                    'success': snapJSON => {
+                        const el = builder.querySelector('section#more-documentaries .nextSnap' + snapLink);
+                        el.innerHTML = snapJSON.html;
+                    }
+                });
+            }
         });
 
         const autoplayReferrers = [
