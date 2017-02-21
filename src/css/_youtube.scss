@@ -22,15 +22,9 @@
         }
         @include mq(leftCol) {
             height: 620px;
-            &--playing {
-                height: 641px;
-            }
         }
         @include mq(wide) {
             height: 680px;
-            &--playing {
-                height: 731px;
-            }
         }
     }
     &--wrapper {
