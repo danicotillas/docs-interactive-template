@@ -3,7 +3,7 @@ import YouTubePlayer from 'youtube-player';
 import reqwest from 'reqwest';
 import {isMobile} from './detect';
 import Tracker from './tracking';
-import {setStyles, scrollTo} from './dom';
+import {scrollTo} from './dom';
 import {parse} from 'iso8601-duration';
 
 class PimpedYouTubePlayer {

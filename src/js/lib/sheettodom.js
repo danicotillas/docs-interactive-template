@@ -1,6 +1,5 @@
 import sheetUrl from './sheetURL';
 import reqwest from 'reqwest';
-import startsWith from 'lodash.startswith';
 
 
 export function sheetToDomInnerHtml(sheetID, sheetName, el, callback) {
